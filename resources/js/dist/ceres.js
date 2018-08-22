@@ -15038,7 +15038,14 @@ Vue.component("basket-list-item", {
             return sum;
         },
         itemTotalPrice: function itemTotalPrice() {
-            return this.basketItem.quantity * (this.basketItem.variation.data.prices.default.unitPrice.value + this.propertySurchargeSum);
+            var price = 0.00;
+
+            if (this.basketItem.price == this.basketItem.variation.data.prices.specialOffer.unitPrice.value) {
+                price = this.basketItem.price;
+            } else {
+                price = this.basketItem.variation.data.prices.default.unitPrice.value;
+            }
+            return this.basketItem.quantity * (price + this.propertySurchargeSum);
         }
     }, Vuex.mapState({
         isBasketLoading: function isBasketLoading(state) {
